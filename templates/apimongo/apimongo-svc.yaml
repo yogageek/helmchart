@@ -1,0 +1,32 @@
+{{- if .Values.apimongo.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.apimongo.name }}-svc
+spec:
+{{- if .Values.apimongo.service.externalEnabled }}
+  {{- if eq .Values.apimongo.service.type "NodePort" }}
+  type: NodePort
+  {{- end }}
+  {{- if eq .Values.apimongo.service.type "LoadBalancer" }}
+  type: LoadBalancer
+  {{- end }}
+{{- else }}
+  type: ClusterIP
+{{- end }}
+  ports:
+  - name: {{ .Values.apimongo.name }}-port
+    port: {{ .Values.apimongo.port | default 8080 }}
+    protocol: TCP
+    targetPort: {{ .Values.apimongo.name }}-port
+{{- if .Values.apimongo.service.externalEnabled }}
+  {{- if eq .Values.apimongo.service.type "NodePort" }}
+    {{- if .Values.apimongo.service.nodePort }}
+    nodePort: {{ .Values.apimongo.service.nodePort }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+  selector:
+    app: {{ .Values.apimongo.name }}-pod
+---
+{{- end }}

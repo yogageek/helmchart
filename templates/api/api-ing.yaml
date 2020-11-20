@@ -1,0 +1,22 @@
+{{- if .Values.ingress.enabled -}}
+{{- $domain := .Values.global.url.host -}}
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ .Values.api.name }}-ing
+spec:
+  rules:
+  - host: "{{ .Values.appName }}-{{ .Values.api.name }}{{ $domain }}"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Values.api.name }}-svc
+          servicePort: {{ .Values.api.port | default 8080 }}
+{{- end }}
+---
+

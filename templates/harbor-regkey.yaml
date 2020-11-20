@@ -1,0 +1,10 @@
+{{- if .Values.imageSecrets.enabled }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.imageSecrets.name }}
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: {{ .Values.imageSecrets.regkey }}
+---
+{{- end }}

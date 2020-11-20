@@ -1,0 +1,352 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# ------------------------------------------------------------------------------
+# Cluster & AppName
+# ------------------------------------------------------------------------------
+appName: "ws" #會影響到網域
+
+ensaas:
+  enabled: false
+
+ingress:
+  enabled: true
+
+# ------------------------------------------------------------------------------
+# global
+# ------------------------------------------------------------------------------
+# old
+# ------------------------------------------------------------------------------
+# global:
+#   database:
+#     secretName: "eks005-m2i-secret" #"cluster-ns-secret"
+#   url:
+#     host: ".m2i.eks005.en.internal" #".ns.cluster.en.internal"
+#   ensaasApps:
+#     apiLicense:
+#       externalUrl: "https://api-license-ensaas.sa.wise-paas.com/v1"
+#       internalUrl: "http://api.license.ensaas.en.internal/v1"
+#     apiSso:
+#       externalUrl: "https://api-sso-ensaas.sa.wise-paas.com/v4.0"
+#       internalUrl: "http://api.sso.ensaas.en.internal/v4.0"
+#     ensaas:
+#       datacenterCode: "sa"
+#       externalUrl: "sa.wise-paas.com"
+#       internalUrl: "en.internal"
+# ------------------------------------------------------------------------------
+# new
+# ------------------------------------------------------------------------------
+#  #當前環境=eks009 #崑山=eks003 需全部replace
+# ------------------------------------------------------------------------------
+global:
+  database:
+    secretName: ifactory-metalworkv21-secret
+  url:
+    host: .metalworkv21.eks003.en.internal #網域會多一個metalworkv21
+    # host: .eks009.en.internal  #部屬出來後打不通
+  ensaasApps:    
+    apiSso:
+      internalUrl: http://api.sso.ensaas.en.internal/v4.0
+      externalUrl: http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0
+    apiLicense:
+      internalUrl: http://api.license.ensaas.en.internal/v1
+      externalUrl: http://metalwork-license-metalworkv21-eks003.ifactory.wise-stack.com.cn/v1
+    ensaas:
+      datacenterCode: ks
+      externalUrl: ifactory.wise-stack.com.cn
+      internalUrl: en.internal
+    licenseParam:
+      pn: "9803WPMPM1"
+    timeSetting:
+      time_zone: 8
+    menuSetting:
+      module: "OEE,EHS"
+
+# ------------------------------------------------------------------------------
+# Namespace
+# ------------------------------------------------------------------------------
+namespace:
+   enabled: false
+
+# ------------------------------------------------------------------------------
+# Docker Registry Key
+# ------------------------------------------------------------------------------
+imageSecrets: 
+    enabled: true
+    name: harbor-regkey
+    regkey: ewogICAgICAgICJhdXRocyI6IHsKICAgICAgICAgICAgICAgICJoYXJib3IuYXJmYS53aXNlLXBhYXMuY29tIjogewogICAgICAgICAgICAgICAgICAgICAgICAiYXV0aCI6ICJVM1Z1YzNndVUzVnVPa0ZrZG1GdWRHVmphRUF4TURBNCIKICAgICAgICAgICAgICAgIH0KICAgICAgICB9LAogICAgICAgICJIdHRwSGVhZGVycyI6IHsKICAgICAgICAgICAgICAgICJVc2VyLUFnZW50IjogIkRvY2tlci1DbGllbnQvMTkuMDMuMTIgKGxpbnV4KSIKICAgICAgICB9Cn0=
+
+# ------------------------------------------------------------------------------
+# Service
+# ------------------------------------------------------------------------------
+api:
+  enabled: true
+  name: api
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/former/m2i-api
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: api-svc
+    #1
+    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    #2
+    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
+    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
+    #3
+    adminUsername : "Sunsx.Sun"
+    adminPassword : "Advantech@1008"
+    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
+    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
+    #4
+    # mongodbUrl : "52.187.110.12:27017"
+    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
+    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
+    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
+    #5
+    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+  secret:
+    # password: "123"
+  service:
+    externalEnabled: false #true->走nodeport, false->走clusterip (參考svc if else寫法)
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 128M
+      cpu: 20m
+      storage: 128M
+    limits:
+      memory: 256M
+      cpu: 80m
+      storage: 256M
+# ------------------------------------------------------------------------------
+apimongo:
+  enabled: true
+  name: apimongo
+  port: 8080
+  image:
+    repository: any99147/mongodb-api
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: apimongo-svc
+    #1
+    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    #2
+    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
+    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
+    #3
+    adminUsername : "Sunsx.Sun"
+    adminPassword : "Advantech@1008"
+    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
+    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
+    #4
+    # mongodbUrl : "52.187.110.12:27017"
+    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
+    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
+    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
+    #5
+    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M
+# ------------------------------------------------------------------------------
+plugin:
+  enabled: true
+  name: plugin
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/former/mwopercmd
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: plugin-svc
+    #1
+    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    #2
+    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com"
+    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com"
+    #3
+    adminUsername : "Sunsx.Sun"
+    adminPassword : "Advantech@1008"
+    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
+    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
+    #4
+    # mongodbUrl : "52.187.110.12:27017"
+    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
+    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
+    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
+    #5
+    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+  secret:
+    # password: "123"
+  service:
+    externalEnabled: false #true->走nodeport, false->走clusterip (參考svc if else寫法)
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M
+# ------------------------------------------------------------------------------
+sdk:
+  enabled: true
+  name: sdk
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/former/containrm
+    tag: 1.0.14
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: sdk-svc
+    #1
+    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    #2
+    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com"
+    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com"
+    #3
+    adminUsername : "Sunsx.Sun"
+    adminPassword : "Advantech@1008"
+    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
+    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
+    #4
+    # mongodbUrl : "52.187.110.12:27017"
+    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
+    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
+    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
+    #5
+    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+  secret:
+    # password: "123"
+  service:
+    externalEnabled: false #true->走nodeport, false->走clusterip (參考svc if else寫法)
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M   
+# ------------------------------------------------------------------------------
+ui:
+  enabled: true
+  name: ui
+  port: 5000
+  image:
+    repository: iiicondor/helm-metalworksiii
+    tag: 1.0.31
+  replicas: 1
+  imagePullPolicy: Always
+  cm:
+    host: ui-svc
+    #1
+    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    #2
+    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
+    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
+    #3
+    adminUsername : "Sunsx.Sun"
+    adminPassword : "Advantech@1008"
+    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
+    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
+    #4
+    # mongodbUrl : "52.187.110.12:27017"
+    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
+    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
+    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
+    #5
+    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: #80
+  resources: 
+    enabled: true
+    requests:
+      memory: 32M
+      cpu: 5m
+      ephemeral-storage: 32M
+    limits:
+      cpu: 20m
+      memory: 64M
+      ephemeral-storage: 64M       
+# ------------------------------------------------------------------------------

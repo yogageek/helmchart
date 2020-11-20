@@ -1,0 +1,29 @@
+{{- if .Values.api.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.api.name }}-cm
+data:
+  #1    
+  DATAHUB_URL: {{ .Values.api.cm.dataHubUrl | quote }}
+  DASHBOARD_URL: {{ .Values.api.cm.dashboardUrl | quote }}
+  APM_URL: {{ .Values.api.cm.apmUrl | quote }}
+  #2
+  MOBILE_URL: {{ .Values.api.cm.mobileUrl | quote }}
+  UI_URL: {{ .Values.api.cm.uiUrl | quote }}
+  NOTIFICATION_URL: {{ .Values.api.cm.notificationUrl | quote }}
+  #3
+  DCCS_URL: {{ .Values.api.cm.dccsUrl | quote }}
+  API_URL: {{ .Values.api.cm.apiUrl | quote }}
+  #4
+  ADMIN_USERNAME : {{ .Values.api.cm.adminUsername | quote }}
+  ADMIN_PASSWORD : {{ .Values.api.cm.adminPassword | quote }}
+  SSO_URL : {{ .Values.api.cm.ssoUrl | quote }}
+  #5
+  # MONGODB_URL : {{ .Values.api.cm.dccsUrl | quote }}
+  # MONGODB_DATABASE : {{ .Values.api.cm.dccsUrl | quote }}
+  # MONGODB_USERNAME : {{ .Values.api.cm.dccsUrl | quote }}
+  # MONGODB_PASSWORD : {{ .Values.api.cm.dccsUrl | quote }}
+  
+---
+{{- end }}

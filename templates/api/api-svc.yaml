@@ -1,0 +1,32 @@
+{{- if .Values.api.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.api.name }}-svc
+spec:
+{{- if .Values.api.service.externalEnabled }}
+  {{- if eq .Values.api.service.type "NodePort" }}
+  type: NodePort
+  {{- end }}
+  {{- if eq .Values.api.service.type "LoadBalancer" }}
+  type: LoadBalancer
+  {{- end }}
+{{- else }}
+  type: ClusterIP
+{{- end }}
+  ports:
+  - name: {{ .Values.api.name }}-port
+    port: {{ .Values.api.port | default 8080 }}
+    protocol: TCP
+    targetPort: {{ .Values.api.name }}-port
+{{- if .Values.api.service.externalEnabled }}
+  {{- if eq .Values.api.service.type "NodePort" }}
+    {{- if .Values.api.service.nodePort }}
+    nodePort: {{ .Values.api.service.nodePort }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+  selector:
+    app: {{ .Values.api.name }}-pod
+---
+{{- end }}

@@ -1,0 +1,29 @@
+{{- if .Values.apimongo.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.apimongo.name }}-cm
+data:
+  #1    
+  DATAHUB_URL: {{ .Values.apimongo.cm.dataHubUrl | quote }}
+  DASHBOARD_URL: {{ .Values.apimongo.cm.dashboardUrl | quote }}
+  APM_URL: {{ .Values.apimongo.cm.apmUrl | quote }}
+  #2
+  MOBILE_URL: {{ .Values.apimongo.cm.mobileUrl | quote }}
+  UI_URL: {{ .Values.apimongo.cm.uiUrl | quote }}
+  NOTIFICATION_URL: {{ .Values.apimongo.cm.notificationUrl | quote }}
+  #3
+  DCCS_URL: {{ .Values.apimongo.cm.dccsUrl | quote }}
+  API_URL: {{ .Values.apimongo.cm.apiUrl | quote }}
+  #4
+  ADMIN_USERNAME : {{ .Values.apimongo.cm.adminUsername | quote }}
+  ADMIN_PASSWORD : {{ .Values.apimongo.cm.adminPassword | quote }}
+  SSO_URL : {{ .Values.apimongo.cm.ssoUrl | quote }}
+  #5
+  # MONGODB_URL : {{ .Values.apimongo.cm.dccsUrl | quote }}
+  # MONGODB_DATABASE : {{ .Values.apimongo.cm.dccsUrl | quote }}
+  # MONGODB_USERNAME : {{ .Values.apimongo.cm.dccsUrl | quote }}
+  # MONGODB_PASSWORD : {{ .Values.apimongo.cm.dccsUrl | quote }}
+  
+---
+{{- end }}

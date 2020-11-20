@@ -1,0 +1,108 @@
+{{- if .Values.api.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.api.name }}
+spec:
+  replicas: {{ .Values.api.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ .Values.api.name }}-pod
+  template:
+    metadata:
+      name: {{ .Values.api.name }}-pod
+      labels:
+        app: {{ .Values.api.name }}-pod
+    spec:
+      hostname: {{ .Values.api.name }}-pod
+      imagePullSecrets:
+      - name: {{ .Values.imageSecrets.name }}
+      containers:
+      - name: {{ .Values.api.name }}
+        image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+        imagePullPolicy: {{ .Values.api.imagePullPolicy }}        
+        ports:
+        - name: {{ .Values.api.name }}-port
+          containerPort: 8080
+          protocol: TCP
+        {{- if .Values.api.resources.enabled }}
+        resources:
+          requests:
+            memory: {{ .Values.api.resources.requests.memory | default "100Mi" }}
+            cpu: {{ .Values.api.resources.requests.cpu | default "100m" }}
+            ephemeral-storage: {{ .Values.api.resources.requests.storage | default "100Mi" }} 
+          limits:
+            memory: {{ .Values.api.resources.limits.memory | default "300Mi" }}
+            cpu: {{ .Values.api.resources.limits.cpu | default "100m" }}
+            ephemeral-storage: {{ .Values.api.resources.limits.storage | default "500Mi" }}
+        {{- end }}
+        env:
+        #1
+        - name: DATAHUB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: DATAHUB_URL
+        - name: APM_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: APM_URL
+        - name: DASHBOARD_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: DASHBOARD_URL
+        #2
+        - name: MOBILE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: MOBILE_URL
+        - name: UI_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: UI_URL
+        - name: NOTIFICATION_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: NOTIFICATION_URL
+        #3
+        - name: DCCS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: DCCS_URL
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: API_URL
+        #4
+        - name: ADMIN_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: ADMIN_USERNAME
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: ADMIN_PASSWORD
+        - name: SSO_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: SSO_URL
+        #5
+        {{- if .Values.ensaas.enabled }}
+        - name: ENSAAS_SERVICES
+          valueFrom:
+            secretKeyRef:
+              key: ENSAAS_SERVICES
+              name: ifactory-metalworkv21-secret
+        {{- end }}        
+---
+{{- end }}

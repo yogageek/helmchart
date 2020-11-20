@@ -1,0 +1,22 @@
+{{- if .Values.ingress.enabled -}}
+{{- $domain := .Values.global.url.host -}}
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ .Values.apimongo.name }}-ing
+spec:
+  rules:
+  - host: "{{ .Values.appName }}-{{ .Values.apimongo.name }}{{ $domain }}"
+    http:
+      paths:
+      - path: /api #注意,apimongo的設定有加此root path
+        backend:
+          serviceName: {{ .Values.apimongo.name }}-svc
+          servicePort: {{ .Values.apimongo.port | default 8080 }}
+{{- end }}
+---
+

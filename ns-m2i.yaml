@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    workspace: daa988f4-dde6-4257-a47b-42070c99427f
+  name: metalworks1dev #指定在哪個namespace
+---
+
+#這個檔案用來手動部屬
+#如果沒有此ns則長出ns, workspace是ns的上層, 需要在k8s查ns隸屬於哪的workspace

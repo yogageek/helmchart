@@ -1,0 +1,65 @@
+global:
+  database:
+    secretName: ifactory-metalworkv21-secret
+  ensaasApps:    
+    apiSso:
+      internalUrl: http://api.sso.ensaas.en.internal/v4.0
+      externalUrl: http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0
+    apiLicense:
+      internalUrl: http://api.license.ensaas.en.internal/v1
+      externalUrl: http://metalwork-license-metalworkv21-eks003.ifactory.wise-stack.com.cn/v1
+    ensaas:
+      datacenterCode: ks
+      externalUrl: ifactory.wise-stack.com.cn
+      internalUrl: en.internal
+    licenseParam:
+      pn: "9803WPMPM1"
+    timeSetting:
+      time_zone: 8
+    menuSetting:
+      module: "OEE,EHS"
+  url:
+    host: .metalworkv21.eks003.en.internal
+#docker镜像
+  api_metalwork:
+    repository: harbor.arfa.wise-paas.com/sunsx/api-metalwork
+    tag: v21.0.5
+    pullPolicy: IfNotPresent
+  portal_config:
+    repository: harbor.arfa.wise-paas.com/sunsx/portal-config
+    tag: v21.0.2
+    pullPolicy: IfNotPresent
+  portal_onsite:
+    repository: harbor.arfa.wise-paas.com/sunsx/portal-onsite
+    tag: v21.0.2
+    pullPolicy: IfNotPresent
+  ehs_worker:
+    repository: harbor.arfa.wise-paas.com/sunsx/ehs-worker
+    tag: v21.0.1
+    pullPolicy: IfNotPresent
+  lpm_worker:
+    repository: harbor.arfa.wise-paas.com/sunsx/lpm-worker
+    tag: v21.0.3
+    pullPolicy: IfNotPresent
+  workorder_worker:
+    repository: harbor.arfa.wise-paas.com/sunsx/workorder-worker
+    tag: v21.0.1
+    pullPolicy: IfNotPresent
+  andon_worker:
+    repository: harbor.arfa.wise-paas.com/sunsx/andon-worker
+    tag: v21.0.3
+    pullPolicy: IfNotPresent
+  oee_worker:
+    repository: harbor.arfa.wise-paas.com/sunsx/oee-worker
+    tag: v21.0.3
+    pullPolicy: IfNotPresent
+  metalwork_license: 
+    repository: harbor.arfa.wise-paas.com/sunsx/metalwork-license
+    tag: v20.0.0
+    pullPolicy: IfNotPresent
+
+image:
+  password: "Advantech@1008"
+  registry: harbor.arfa.wise-paas.com
+  secret: image-pull-secret
+  username: "Sunsx.Sun"
