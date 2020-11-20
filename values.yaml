@@ -117,11 +117,11 @@ api:
     dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
     notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     #2
-    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
-    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
+    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
     #3
     adminUsername : "Sunsx.Sun"
     adminPassword : "Advantech@1008"
@@ -167,11 +167,11 @@ apimongo:
     dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
     notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     #2
-    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
-    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
+    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
     #3
     adminUsername : "Sunsx.Sun"
     adminPassword : "Advantech@1008"
@@ -212,15 +212,15 @@ plugin:
   imagePullPolicy: Always #IfNotPresent
   cm:
     host: plugin-svc
-    #1
+      #1
     dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
     notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     #2
-    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com"
-    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com"
+    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
     #3
     adminUsername : "Sunsx.Sun"
     adminPassword : "Advantech@1008"
@@ -266,11 +266,11 @@ sdk:
     dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
     notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     #2
-    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com"
-    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com"
+    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
     #3
     adminUsername : "Sunsx.Sun"
     adminPassword : "Advantech@1008"
@@ -316,11 +316,11 @@ ui:
     dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
     notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     #2
-    uiUrl: "http://ui-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
-    apiUrl: "https://api-ifactory-m2i-eks005.sa.wise-paas.com" #待修改
+    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
     #3
     adminUsername : "Sunsx.Sun"
     adminPassword : "Advantech@1008"
