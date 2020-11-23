@@ -27,7 +27,7 @@ affinity: {}
 # ------------------------------------------------------------------------------
 # Cluster & AppName
 # ------------------------------------------------------------------------------
-appName: "ws" #會影響到網域
+appName: "ws" #會影響到網域開頭
 
 ensaas:
   enabled: false
@@ -100,6 +100,35 @@ imageSecrets:
     regkey: ewogICAgICAgICJhdXRocyI6IHsKICAgICAgICAgICAgICAgICJoYXJib3IuYXJmYS53aXNlLXBhYXMuY29tIjogewogICAgICAgICAgICAgICAgICAgICAgICAiYXV0aCI6ICJVM1Z1YzNndVUzVnVPa0ZrZG1GdWRHVmphRUF4TURBNCIKICAgICAgICAgICAgICAgIH0KICAgICAgICB9LAogICAgICAgICJIdHRwSGVhZGVycyI6IHsKICAgICAgICAgICAgICAgICJVc2VyLUFnZW50IjogIkRvY2tlci1DbGllbnQvMTkuMDMuMTIgKGxpbnV4KSIKICAgICAgICB9Cn0=
 
 # ------------------------------------------------------------------------------
+# Env
+# ------------------------------------------------------------------------------
+env:
+    #1
+    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    mobileUrl: "" #尚未更新
+    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    #2
+    adminUsername : "Sunsx.Sun"
+    adminPassword : "Advantech@1008"
+    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
+    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
+    #3 注意需依照ingress config
+    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    apimongoUrl: "https://ws-apimongo-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    apimeasureUrl: "https://ws-measure-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    apimeasuremachineUrl: "https://ws-measurema-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    #4 之後需改用ensaas-secret
+    mongodbUrl : "172.21.160.27:27017"
+    mongodbDatabase : "ifactory-metalworkv21-mongo-privatecloud"
+    mongodbUsername : "bad36f42-45c6-4eea-82ca-00067be82707"
+    mongodbPassword : "Dsc3WD9F3qNfHK6a95jjJkwz"
+    #5 目前沒用到
+    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"  
+
+# ------------------------------------------------------------------------------
 # Service
 # ------------------------------------------------------------------------------
 api:
@@ -107,33 +136,13 @@ api:
   name: api
   port: 8080
   image:
-    repository: harbor.arfa.wise-paas.com/former/m2i-api
+    repository: harbor.arfa.wise-paas.com/metalworks/m2i-api
     tag: latest
   replicas: 1
   imagePullPolicy: Always #IfNotPresent
   cm:
     host: api-svc
-    #1
-    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
-    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    #2
-    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    #3
-    adminUsername : "Sunsx.Sun"
-    adminPassword : "Advantech@1008"
-    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
-    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
-    #4
-    # mongodbUrl : "52.187.110.12:27017"
-    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
-    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
-    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
-    #5
-    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+
   secret:
     # password: "123"
   service:
@@ -157,33 +166,42 @@ apimongo:
   name: apimongo
   port: 8080
   image:
-    repository: any99147/mongodb-api
+    repository: harbor.arfa.wise-paas.com/metalworks/api-mongodb
     tag: latest
   replicas: 1
   imagePullPolicy: Always #IfNotPresent
   cm:
     host: apimongo-svc
-    #1
-    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
-    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    #2
-    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    #3
-    adminUsername : "Sunsx.Sun"
-    adminPassword : "Advantech@1008"
-    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
-    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
-    #4
-    # mongodbUrl : "52.187.110.12:27017"
-    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
-    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
-    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
-    #5
-    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M      
+# ------------------------------------------------------------------------------
+measure:
+  enabled: true
+  name: measure
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/measure
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: measure-svc
+
   secret:
   service:
     externalEnabled: false
@@ -201,38 +219,47 @@ apimongo:
       memory: 128M
       ephemeral-storage: 128M
 # ------------------------------------------------------------------------------
+measurema:
+  enabled: true
+  name: measurema
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/measure-machine-perf
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: measurema-svc
+
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M                  
+# ------------------------------------------------------------------------------
 plugin:
   enabled: true
   name: plugin
   port: 8080
   image:
-    repository: harbor.arfa.wise-paas.com/former/mwopercmd
+    repository: harbor.arfa.wise-paas.com/metalworks/mwopercmd
     tag: latest
   replicas: 1
   imagePullPolicy: Always #IfNotPresent
   cm:
     host: plugin-svc
-      #1
-    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
-    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    #2
-    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    #3
-    adminUsername : "Sunsx.Sun"
-    adminPassword : "Advantech@1008"
-    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
-    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
-    #4
-    # mongodbUrl : "52.187.110.12:27017"
-    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
-    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
-    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
-    #5
-    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+
   secret:
     # password: "123"
   service:
@@ -256,33 +283,13 @@ sdk:
   name: sdk
   port: 8080
   image:
-    repository: harbor.arfa.wise-paas.com/former/containrm
-    tag: 1.0.14
+    repository: harbor.arfa.wise-paas.com/metalworks/containrm
+    tag: latest
   replicas: 1
   imagePullPolicy: Always #IfNotPresent
   cm:
     host: sdk-svc
-    #1
-    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
-    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    #2
-    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    #3
-    adminUsername : "Sunsx.Sun"
-    adminPassword : "Advantech@1008"
-    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
-    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
-    #4
-    # mongodbUrl : "52.187.110.12:27017"
-    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
-    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
-    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
-    #5
-    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+
   secret:
     # password: "123"
   service:
@@ -306,33 +313,13 @@ ui:
   name: ui
   port: 5000
   image:
-    repository: iiicondor/helm-metalworksiii
-    tag: 1.0.31
+    repository: harbor.arfa.wise-paas.com/metalworks/m2i-ui
+    tag: latest
   replicas: 1
   imagePullPolicy: Always
   cm:
     host: ui-svc
-    #1
-    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com" #尚未更新
-    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    #2
-    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    #3
-    adminUsername : "Sunsx.Sun"
-    adminPassword : "Advantech@1008"
-    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
-    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
-    #4
-    # mongodbUrl : "52.187.110.12:27017"
-    # mongodbDatabase : "9e4b1c74-e00a-473c-b8b1-34e93ad9d269"
-    # mongodbUsername : "d6b128a9-315e-45ae-b40e-ea22fa845a0b"
-    # mongodbPassword : "q9J69ONeDbgGbV8RejsGNhi4"
-    #5
-    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+
   secret:
   service:
     externalEnabled: false

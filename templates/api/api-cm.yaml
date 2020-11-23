@@ -5,25 +5,27 @@ metadata:
   name: {{ .Values.api.name }}-cm
 data:
   #1    
-  DATAHUB_URL: {{ .Values.api.cm.dataHubUrl | quote }}
-  DASHBOARD_URL: {{ .Values.api.cm.dashboardUrl | quote }}
-  APM_URL: {{ .Values.api.cm.apmUrl | quote }}
+  DATAHUB_URL: {{ .Values.env.dataHubUrl | quote }}
+  APM_URL: {{ .Values.env.apmUrl | quote }}
+  DASHBOARD_URL: {{ .Values.env.dashboardUrl | quote }}
+  MOBILE_URL: {{ .Values.env.mobileUrl | quote }}
+  NOTIFICATION_URL: {{ .Values.env.notificationUrl | quote }}
   #2
-  MOBILE_URL: {{ .Values.api.cm.mobileUrl | quote }}
-  UI_URL: {{ .Values.api.cm.uiUrl | quote }}
-  NOTIFICATION_URL: {{ .Values.api.cm.notificationUrl | quote }}
+  ADMIN_USERNAME : {{ .Values.env.adminUsername | quote }}
+  ADMIN_PASSWORD : {{ .Values.env.adminPassword | quote }}
+  DCCS_URL: {{ .Values.env.dccsUrl | quote }}
+  SSO_URL : {{ .Values.env.ssoUrl | quote }}
   #3
-  DCCS_URL: {{ .Values.api.cm.dccsUrl | quote }}
-  API_URL: {{ .Values.api.cm.apiUrl | quote }}
+  UI_URL: {{ .Values.env.uiUrl | quote }}
+  API_URL: {{ .Values.env.apiUrl | quote }}
+  API_MONGO_URL: {{ .Values.env.apimongoUrl | quote }}
+  API_MEASURE_URL: {{ .Values.env.apimeasureUrl | quote }}
+  API_MEASURE_MACHINE_URL: {{ .Values.env.apimeasuremachineUrl | quote }}
   #4
-  ADMIN_USERNAME : {{ .Values.api.cm.adminUsername | quote }}
-  ADMIN_PASSWORD : {{ .Values.api.cm.adminPassword | quote }}
-  SSO_URL : {{ .Values.api.cm.ssoUrl | quote }}
-  #5
-  # MONGODB_URL : {{ .Values.api.cm.dccsUrl | quote }}
-  # MONGODB_DATABASE : {{ .Values.api.cm.dccsUrl | quote }}
-  # MONGODB_USERNAME : {{ .Values.api.cm.dccsUrl | quote }}
-  # MONGODB_PASSWORD : {{ .Values.api.cm.dccsUrl | quote }}
+  MONGODB_URL : {{ .Values.env.mongodbUrl | quote }}
+  MONGODB_DATABASE : {{ .Values.env.mongodbDatabase | quote }}
+  MONGODB_USERNAME : {{ .Values.env.mongodbUsername | quote }}
+  MONGODB_PASSWORD : {{ .Values.env.mongodbPassword | quote }}
   
 ---
 {{- end }}

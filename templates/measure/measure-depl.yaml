@@ -1,40 +1,40 @@
-{{- if .Values.ui.enabled }}
+{{- if .Values.measure.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.ui.name }}
+  name: {{ .Values.measure.name }}
 spec:
-  replicas: {{ .Values.ui.replicas | default 1 }}
+  replicas: {{ .Values.measure.replicas | default 1 }}
   selector:
     matchLabels:
-      app: {{ .Values.ui.name }}-pod
+      app: {{ .Values.measure.name }}-pod
   template:
     metadata:
-      name: {{ .Values.ui.name }}-pod
+      name: {{ .Values.measure.name }}-pod
       labels:
-        app: {{ .Values.ui.name }}-pod
+        app: {{ .Values.measure.name }}-pod
     spec:
-      hostname: {{ .Values.ui.name }}-pod
+      hostname: {{ .Values.measure.name }}-pod
       imagePullSecrets:
       - name: {{ .Values.imageSecrets.name }}
       containers:
-      - name: {{ .Values.ui.name }}
-        image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"
-        imagePullPolicy: {{ .Values.ui.imagePullPolicy }}        
+      - name: {{ .Values.measure.name }}
+        image: "{{ .Values.measure.image.repository }}:{{ .Values.measure.image.tag }}"
+        imagePullPolicy: {{ .Values.measure.imagePullPolicy }}        
         ports:
-        - name: {{ .Values.ui.name }}-port
-          containerPort: 5000
+        - name: {{ .Values.measure.name }}-port
+          containerPort: 8080
           protocol: TCP
-        {{- if .Values.ui.resources.enabled }}
+        {{- if .Values.measure.resources.enabled }}
         resources:
           requests:
-            memory: {{ .Values.ui.resources.requests.memory | default "100Mi" }}
-            cpu: {{ .Values.ui.resources.requests.cpu | default "100m" }}
-            ephemeral-storage: {{ .Values.ui.resources.requests.storage | default "100Mi" }} 
+            memory: {{ .Values.measure.resources.requests.memory | default "100Mi" }}
+            cpu: {{ .Values.measure.resources.requests.cpu | default "100m" }}
+            ephemeral-storage: {{ .Values.measure.resources.requests.storage | default "100Mi" }} 
           limits:
-            memory: {{ .Values.ui.resources.limits.memory | default "300Mi" }}
-            cpu: {{ .Values.ui.resources.limits.cpu | default "100m" }}
-            ephemeral-storage: {{ .Values.ui.resources.limits.storage | default "500Mi" }}
+            memory: {{ .Values.measure.resources.limits.memory | default "300Mi" }}
+            cpu: {{ .Values.measure.resources.limits.cpu | default "100m" }}
+            ephemeral-storage: {{ .Values.measure.resources.limits.storage | default "500Mi" }}
         {{- end }}
         env:
         #1
