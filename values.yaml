@@ -65,8 +65,8 @@ global:
   database:
     secretName: ifactory-metalworkv21-secret
   url:
-    host: .metalworkv21.eks003.en.internal #網域會多一個metalworkv21
-    # host: .eks009.en.internal  #部屬出來後打不通
+    host: .metalworkv21.eks009.en.internal #網域會多一個metalworkv21
+    # host: .eks009.en.internal  #不加metalworkv21, 部屬出來後打不通
   ensaasApps:    
     apiSso:
       internalUrl: http://api.sso.ensaas.en.internal/v4.0
@@ -104,29 +104,27 @@ imageSecrets:
 # ------------------------------------------------------------------------------
 env:
     #1
-    dataHubUrl: "https://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    apmUrl: "https://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    dashboardUrl: "https://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    mobileUrl: "" #尚未更新
-    notificationUrl: "https://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    dataHubUrl: "http://portal-datahub-ifactory-eks009.sa.wise-paas.com" 
+    apmUrl: "https://portal-apm-apm-eks009.sa.wise-paas.com"
+    dashboardUrl: "https://dashboard-ifactory-eks005.sa.wise-paas.com"
+    mobileUrl: "https://ifactory-webservice-ifactory-eks009.sa.wise-paas.com"
+    notificationUrl: "https://portal-notification-ifactory-eks005.sa.wise-paas.com"
     #2
-    adminUsername : "Sunsx.Sun"
-    adminPassword : "Advantech@1008"
-    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
-    ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
+    adminUsername : "devanliang@iii.org.tw"
+    adminPassword : "Abcd1234#"
+    dccsUrl: "https://api-dccs-ensaas.sa.wise-paas.com"
+    ssoUrl : "https://portal-sso-ensaas.sa.wise-paas.com/v4.0/auth/native"
     #3 注意需依照ingress config
-    apiUrl: "https://ws-api-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    apimongoUrl: "https://ws-apimongo-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    apimeasureUrl: "https://ws-measure-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    apimeasuremachineUrl: "https://ws-measurema-metalworkv21-eks003.sa.wise-paas.com" #待修改
-    uiUrl: "https://ws-ui-metalworkv21-eks003.sa.wise-paas.com" #待修改
+    apiUrl: "https://ws-api-metalworkv21-eks009.sa.wise-paas.com" #待修改
+    apimongoUrl: "https://ws-apimongo-metalworkv21-eks009.sa.wise-paas.com" #待修改
+    apimeasureUrl: "https://ws-measure-metalworkv21-eks009.sa.wise-paas.com" #待修改
+    apimeasuremachineUrl: "https://ws-measurema-metalworkv21-eks009.sa.wise-paas.com" #待修改
+    uiUrl: "https://ws-ui-metalworkv21-eks009.sa.wise-paas.com" #待修改
     #4 之後需改用ensaas-secret
-    mongodbUrl : "172.21.160.27:27017"
-    mongodbDatabase : "ifactory-metalworkv21-mongo-privatecloud"
-    mongodbUsername : "bad36f42-45c6-4eea-82ca-00067be82707"
-    mongodbPassword : "Dsc3WD9F3qNfHK6a95jjJkwz"
-    #5 目前沒用到
-    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"  
+    mongodbUrl : "52.187.110.12:27017"
+    mongodbDatabase : "yoga-test"
+    mongodbUsername : "2944c166-b0f0-4ca9-9122-3eb1b457de1c"
+    mongodbPassword : "G0ucKxREMEWzvTcZfckdrUax"
 
 # ------------------------------------------------------------------------------
 # Service
