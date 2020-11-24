@@ -1,0 +1,32 @@
+{{- if .Values.initmongo.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.initmongo.name }}  
+spec:
+  template:
+    metadata:
+      name: {{ .Values.initmongo.name }}
+      labels:
+        app: {{ .Values.initmongo.name }}-pod
+    spec:
+      imagePullSecrets:
+      - name: {{ .Values.imageSecrets.name }}
+      containers:
+      - name: {{ .Values.initmongo.name }}
+        image: "{{ .Values.initmongo.image.repository }}:{{ .Values.initmongo.image.tag }}"
+        # command: ["sh", "-c", "echo Processing item && sleep 5000000"]
+        {{- if .Values.initmongo.resources.enabled }}
+        resources:
+          requests:
+            memory: {{ .Values.initmongo.resources.requests.memory | default "100Mi" }}
+            cpu: {{ .Values.initmongo.resources.requests.cpu | default "100m" }}
+            ephemeral-storage: {{ .Values.initmongo.resources.requests.storage | default "100Mi" }} 
+          limits:
+            memory: {{ .Values.initmongo.resources.limits.memory | default "300Mi" }}
+            cpu: {{ .Values.initmongo.resources.limits.cpu | default "100m" }}
+            ephemeral-storage: {{ .Values.initmongo.resources.limits.storage | default "500Mi" }}
+        {{- end }}
+      restartPolicy: Never
+---
+{{- end }}      

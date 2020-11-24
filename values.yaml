@@ -337,16 +337,15 @@ ui:
 # ------------------------------------------------------------------------------
 initmongo:
   enabled: true
-  name: ui
-  port: 5000
+  name: initmongo
+  port: 8080
   image:
     repository: harbor.arfa.wise-paas.com/metalworks/init-mongodb
     tag: latest
   replicas: 1
   imagePullPolicy: Always #IfNotPresent
   cm:
-    host: measurema-svc
-
+    host: initmongo-svc
   secret:
   service:
     externalEnabled: false
