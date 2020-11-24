@@ -335,3 +335,32 @@ ui:
       memory: 200M
       ephemeral-storage: 500Mi       
 # ------------------------------------------------------------------------------
+initmongo:
+  enabled: true
+  name: ui
+  port: 5000
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/init-mongodb
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: measurema-svc
+
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M 
+# ------------------------------------------------------------------------------    

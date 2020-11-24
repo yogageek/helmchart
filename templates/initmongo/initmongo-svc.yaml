@@ -1,0 +1,32 @@
+{{- if .Values.initmongo.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.initmongo.name }}-svc
+spec:
+{{- if .Values.initmongo.service.externalEnabled }}
+  {{- if eq .Values.initmongo.service.type "NodePort" }}
+  type: NodePort
+  {{- end }}
+  {{- if eq .Values.initmongo.service.type "LoadBalancer" }}
+  type: LoadBalancer
+  {{- end }}
+{{- else }}
+  type: ClusterIP
+{{- end }}
+  ports:
+  - name: {{ .Values.initmongo.name }}-port
+    port: {{ .Values.initmongo.port | default 8080 }}
+    protocol: TCP
+    targetPort: {{ .Values.initmongo.name }}-port
+{{- if .Values.initmongo.service.externalEnabled }}
+  {{- if eq .Values.initmongo.service.type "NodePort" }}
+    {{- if .Values.initmongo.service.nodePort }}
+    nodePort: {{ .Values.initmongo.service.nodePort }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+  selector:
+    app: {{ .Values.initmongo.name }}-pod
+---
+{{- end }}
