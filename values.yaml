@@ -134,7 +134,7 @@ api:
   name: api
   port: 8080
   image:
-    repository: harbor.arfa.wise-paas.com/metalworks/m2i-api
+    repository: harbor.arfa.wise-paas.com/metalworks/api
     tag: latest
   replicas: 1
   imagePullPolicy: Always #IfNotPresent
