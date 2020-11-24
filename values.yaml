@@ -249,7 +249,7 @@ measurema:
 plugin:
   enabled: true
   name: plugin
-  port: 8080
+  port: 5000
   image:
     repository: harbor.arfa.wise-paas.com/metalworks/mwopercmd
     tag: latest
@@ -279,7 +279,7 @@ plugin:
 sdk:
   enabled: true
   name: sdk
-  port: 8080
+  port: 5000
   image:
     repository: harbor.arfa.wise-paas.com/metalworks/containrm
     tag: latest
@@ -329,9 +329,9 @@ ui:
     requests:
       memory: 32M
       cpu: 5m
-      ephemeral-storage: 32M
+      ephemeral-storage: 100Mi
     limits:
-      cpu: 20m
-      memory: 64M
-      ephemeral-storage: 64M       
+      cpu: 100m
+      memory: 200M
+      ephemeral-storage: 500Mi       
 # ------------------------------------------------------------------------------
