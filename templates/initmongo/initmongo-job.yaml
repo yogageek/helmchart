@@ -27,6 +27,110 @@ spec:
             cpu: {{ .Values.initmongo.resources.limits.cpu | default "100m" }}
             ephemeral-storage: {{ .Values.initmongo.resources.limits.storage | default "500Mi" }}
         {{- end }}
+        env:
+        #1
+        - name: DATAHUB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: DATAHUB_URL
+        - name: APM_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: APM_URL
+        - name: DASHBOARD_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: DASHBOARD_URL
+        - name: MOBILE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: MOBILE_URL
+        - name: NOTIFICATION_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: NOTIFICATION_URL
+        #2
+        - name: ADMIN_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: ADMIN_USERNAME
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: ADMIN_PASSWORD
+        - name: DCCS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: DCCS_URL      
+        - name: SSO_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: SSO_URL
+        #3      
+        - name: UI_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: UI_URL
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: API_URL
+        - name: API_MONGO_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: API_MONGO_URL
+        - name: API_MEASURE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: API_MEASURE_URL
+        - name: API_MEASURE_MACHINE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: API_MEASURE_MACHINE_URL
+        #4      
+        - name: MONGODB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: MONGODB_URL
+        - name: MONGODB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: MONGODB_DATABASE
+        - name: MONGODB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: MONGODB_USERNAME
+        - name: MONGODB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: MONGODB_PASSWORD                                                                                    
+        #secret
+        {{- if .Values.ensaas.enabled }}
+        - name: ENSAAS_SERVICES
+          valueFrom:
+            secretKeyRef:
+              key: ENSAAS_SERVICES
+              name: ifactory-metalworkv21-secret
+        {{- end }}   
       restartPolicy: Never
+       
 ---
 {{- end }}      
