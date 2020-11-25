@@ -6,8 +6,8 @@ NAME=metalworks
 # helm install . -g
 
 # method 1 
-# helm del $NAME
-# helm install $NAME .
+helm del $NAME
+helm install $NAME .
 
 # or method2
-helm upgrade $NAME .
+# helm upgrade $NAME .

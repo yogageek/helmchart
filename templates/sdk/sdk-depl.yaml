@@ -23,7 +23,7 @@ spec:
         imagePullPolicy: {{ .Values.sdk.imagePullPolicy }}        
         ports:
         - name: {{ .Values.sdk.name }}-port
-          containerPort: 8080
+          containerPort: 5000
           protocol: TCP
         {{- if .Values.sdk.resources.enabled }}
         resources:

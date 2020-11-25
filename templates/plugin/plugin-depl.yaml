@@ -23,7 +23,7 @@ spec:
         imagePullPolicy: {{ .Values.plugin.imagePullPolicy }}        
         ports:
         - name: {{ .Values.plugin.name }}-port
-          containerPort: 8080
+          containerPort: 5000
           protocol: TCP
         {{- if .Values.plugin.resources.enabled }}
         resources:
