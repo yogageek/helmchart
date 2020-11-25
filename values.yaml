@@ -119,6 +119,8 @@ env:
     apimongoUrl: "https://ws-apimongo-metalworkv21-eks009.sa.wise-paas.com" #待修改
     apimeasureUrl: "https://ws-measure-metalworkv21-eks009.sa.wise-paas.com" #待修改
     apimeasuremachineUrl: "https://ws-measurema-metalworkv21-eks009.sa.wise-paas.com" #待修改
+    apipluginUrl: "https://ws-plugin-metalworkv21-eks009.sa.wise-paas.com" #待修改
+    apisdkUrl: "https://ws-sdk-metalworkv21-eks009.sa.wise-paas.com" #待修改
     uiUrl: "https://ws-ui-metalworkv21-eks009.sa.wise-paas.com" #待修改
     #4 之後需改用ensaas-secret
     mongodbUrl : "52.187.110.12:27017"
@@ -311,7 +313,7 @@ ui:
   name: ui
   port: 5000
   image:
-    repository: harbor.arfa.wise-paas.com/metalworks/m2i-ui
+    repository: harbor.arfa.wise-paas.com/metalworks/metalworksiii
     tag: latest
   replicas: 1
   imagePullPolicy: Always

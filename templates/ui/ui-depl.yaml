@@ -110,6 +110,16 @@ spec:
             configMapKeyRef:
               name: api-cm
               key: API_MEASURE_MACHINE_URL
+        - name: API_PLUGIN_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: API_PLUGIN_URL
+        - name: API_SDK_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: API_SDK_URL                            
         #4      
         - name: MONGODB_URL
           valueFrom:

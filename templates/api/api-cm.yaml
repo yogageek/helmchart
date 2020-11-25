@@ -16,11 +16,13 @@ data:
   DCCS_URL: {{ .Values.env.dccsUrl | quote }}
   SSO_URL : {{ .Values.env.ssoUrl | quote }}
   #3
-  UI_URL: {{ .Values.env.uiUrl | quote }}
   API_URL: {{ .Values.env.apiUrl | quote }}
   API_MONGO_URL: {{ .Values.env.apimongoUrl | quote }}
   API_MEASURE_URL: {{ .Values.env.apimeasureUrl | quote }}
   API_MEASURE_MACHINE_URL: {{ .Values.env.apimeasuremachineUrl | quote }}
+  API_PLUGIN_URL: {{ .Values.env.apipluginUrl | quote }}
+  API_SDK_URL: {{ .Values.env.apisdkUrl | quote }}
+  UI_URL: {{ .Values.env.uiUrl | quote }}
   #4
   MONGODB_URL : {{ .Values.env.mongodbUrl | quote }}
   MONGODB_DATABASE : {{ .Values.env.mongodbDatabase | quote }}
