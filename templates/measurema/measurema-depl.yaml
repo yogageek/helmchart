@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.measurema.name }}
+  name: {{ .Values.appName }}-{{ .Values.podPrefix }}-{{ .Values.measurema.name }}
 spec:
   replicas: {{ .Values.measurema.replicas | default 1 }}
   selector:

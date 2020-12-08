@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.apimongo.name }}
+  name: {{ .Values.appName }}-{{ .Values.podPrefix }}-{{ .Values.apimongo.name }}
 spec:
   replicas: {{ .Values.apimongo.replicas | default 1 }}
   selector:

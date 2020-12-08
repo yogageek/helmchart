@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.api.name }} #關聯到pod name
+  name: {{ .Values.appName }}-{{ .Values.podPrefix }}-{{ .Values.api.name }} #關聯到pod name
 spec:
   replicas: {{ .Values.api.replicas | default 1 }}
   selector:
     matchLabels:
-      app: {{ .Values.api.name }}-pod #must be same
+      app: {{ .Values.api.name }}-pod #要一樣
   template:
     metadata:
-      name: {{ .Values.api.name }}-pod #must be same
+      name: {{ .Values.api.name }}-pod #要一樣
       labels:
         app: {{ .Values.api.name }}-pod
     spec:

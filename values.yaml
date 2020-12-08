@@ -27,7 +27,7 @@ affinity: {}
 # ------------------------------------------------------------------------------
 # Cluster & AppName
 # ------------------------------------------------------------------------------
-appName: "ws" #會影響到網域開頭
+appName: "ws" #會影響到網域開頭 & pod名稱(deployment metadata)
 
 ensaas:
   enabled: false
@@ -98,6 +98,11 @@ imageSecrets:
     enabled: true
     name: harbor-regkey
     regkey: ewogICAgICAgICJhdXRocyI6IHsKICAgICAgICAgICAgICAgICJoYXJib3IuYXJmYS53aXNlLXBhYXMuY29tIjogewogICAgICAgICAgICAgICAgICAgICAgICAiYXV0aCI6ICJVM1Z1YzNndVUzVnVPa0ZrZG1GdWRHVmphRUF4TURBNCIKICAgICAgICAgICAgICAgIH0KICAgICAgICB9LAogICAgICAgICJIdHRwSGVhZGVycyI6IHsKICAgICAgICAgICAgICAgICJVc2VyLUFnZW50IjogIkRvY2tlci1DbGllbnQvMTkuMDMuMTIgKGxpbnV4KSIKICAgICAgICB9Cn0=
+
+# ------------------------------------------------------------------------------
+# Additional
+# ------------------------------------------------------------------------------
+podPrefix: metalworkv21 #會影響到pod名稱(deployment metadata)
 
 # ------------------------------------------------------------------------------
 # Env

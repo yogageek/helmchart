@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Values.initmongo.name }}  
+  name: {{ .Values.appName }}-{{ .Values.podPrefix }}-{{ .Values.initmongo.name }}  
 spec:
   template:
     metadata:
