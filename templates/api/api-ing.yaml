@@ -15,7 +15,7 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: {{ .Values.api.name }}-svc
+          serviceName: {{ .Values.api.name }}-svc #連動到service name
           servicePort: {{ .Values.api.port | default 8080 }}
 {{- end }}
 ---

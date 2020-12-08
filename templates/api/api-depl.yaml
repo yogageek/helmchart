@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.api.name }}
+  name: {{ .Values.api.name }} #關聯到pod name
 spec:
   replicas: {{ .Values.api.replicas | default 1 }}
   selector:
     matchLabels:
-      app: {{ .Values.api.name }}-pod
+      app: {{ .Values.api.name }}-pod #must be same
   template:
     metadata:
-      name: {{ .Values.api.name }}-pod
+      name: {{ .Values.api.name }}-pod #must be same
       labels:
         app: {{ .Values.api.name }}-pod
     spec:
@@ -18,7 +18,7 @@ spec:
       imagePullSecrets:
       - name: {{ .Values.imageSecrets.name }}
       containers:
-      - name: {{ .Values.api.name }}
+      - name: {{ .Values.api.name }} #independent
         image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
         imagePullPolicy: {{ .Values.api.imagePullPolicy }}        
         ports:
