@@ -1,0 +1,62 @@
+{{- if .Values.sso.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}-{{ .Values.podPrefix }}-{{ .Values.sso.name }}
+spec:
+  replicas: {{ .Values.sso.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ .Values.sso.name }}-pod
+  template:
+    metadata:
+      name: {{ .Values.sso.name }}-pod
+      labels:
+        app: {{ .Values.sso.name }}-pod
+    spec:
+      hostname: {{ .Values.sso.name }}-pod
+      imagePullSecrets:
+      - name: {{ .Values.imageSecrets.name }}
+      containers:    
+      - name: {{ .Values.sso.name }}
+        args:        
+        - -jar
+        - auth.jar
+        - --spring.profiles.active=docker
+        command:
+        - java
+        image: "{{ .Values.sso.image.repository }}:{{ .Values.sso.image.tag }}"
+        imagePullPolicy: {{ .Values.sso.imagePullPolicy }}        
+        ports:
+        - name: {{ .Values.sso.name }}-port
+          containerPort: 8080
+          protocol: TCP
+        {{- if .Values.sso.resources.enabled }}
+        resources:
+          requests:
+            memory: {{ .Values.sso.resources.requests.memory | default "100Mi" }}
+            cpu: {{ .Values.sso.resources.requests.cpu | default "100m" }}
+            ephemeral-storage: {{ .Values.sso.resources.requests.storage | default "100Mi" }} 
+          limits:
+            memory: {{ .Values.sso.resources.limits.memory | default "300Mi" }}
+            cpu: {{ .Values.sso.resources.limits.cpu | default "100m" }}
+            ephemeral-storage: {{ .Values.sso.resources.limits.storage | default "500Mi" }}
+        {{- end }}
+     
+        env:
+        #5       
+        - name: WISE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: WISE_URL
+        #secret
+        {{- if .Values.ensaas.enabled }}
+        - name: ENSAAS_SERVICES
+          valueFrom:
+            secretKeyRef:
+              key: ENSAAS_SERVICES
+              name: ifactory-metalworkv21-secret
+        {{- end }}        
+---
+{{- end }}

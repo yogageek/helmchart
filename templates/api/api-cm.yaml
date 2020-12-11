@@ -22,12 +22,15 @@ data:
   API_MEASURE_MACHINE_URL: {{ .Values.env.apimeasuremachineUrl | quote }}
   API_PLUGIN_URL: {{ .Values.env.apipluginUrl | quote }}
   API_SDK_URL: {{ .Values.env.apisdkUrl | quote }}
+  API_SSO_URL: {{ .Values.env.apissoUrl | quote }}
   UI_URL: {{ .Values.env.uiUrl | quote }}
   #4
-  MONGODB_URL : {{ .Values.env.mongodbUrl | quote }}
+  MONGODB_URL: {{ .Values.env.mongodbUrl | quote }}
   MONGODB_DATABASE : {{ .Values.env.mongodbDatabase | quote }}
   MONGODB_USERNAME : {{ .Values.env.mongodbUsername | quote }}
   MONGODB_PASSWORD : {{ .Values.env.mongodbPassword | quote }}
+  #5
+  WISE_URL: {{ .Values.env.wiseUrl | quote }}
   
 ---
 {{- end }}

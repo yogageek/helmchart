@@ -140,7 +140,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: api-cm
-              key: MONGODB_PASSWORD                                                                                    
+              key: MONGODB_PASSWORD
+        - name: API_SSO_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-cm
+              key: API_SSO_URL
         #secret
         {{- if .Values.ensaas.enabled }}
         - name: ENSAAS_SERVICES

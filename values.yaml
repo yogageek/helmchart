@@ -65,7 +65,7 @@ global:
   database:
     secretName: ifactory-metalworkv21-secret
   url:
-    host: .metalworkv21.eks009.en.internal #網域會多一個metalworkv21
+    host: .metalworkv21.eks005.en.internal #網域會多一個metalworkv21
     # host: .eks009.en.internal  #不加metalworkv21, 部屬出來後打不通
   ensaasApps:    
     apiSso:
@@ -118,20 +118,25 @@ env:
     adminUsername : "devanliang@iii.org.tw"
     adminPassword : "Abcd1234#"
     dccsUrl: "https://api-dccs-ensaas.sa.wise-paas.com"
-    ssoUrl : "https://portal-sso-ensaas.sa.wise-paas.com/v4.0/auth/native"
+    ssoUrl : "https://portal-sso-ensaas.sa.wise-paas.com"
     #3 注意需依照ingress config
-    apiUrl: "https://ws-api-metalworkv21-eks009.sa.wise-paas.com" #待修改
-    apimongoUrl: "https://ws-apimongo-metalworkv21-eks009.sa.wise-paas.com" #待修改
-    apimeasureUrl: "https://ws-measure-metalworkv21-eks009.sa.wise-paas.com" #待修改
-    apimeasuremachineUrl: "https://ws-measurema-metalworkv21-eks009.sa.wise-paas.com" #待修改
-    apipluginUrl: "https://ws-plugin-metalworkv21-eks009.sa.wise-paas.com" #待修改
-    apisdkUrl: "https://ws-sdk-metalworkv21-eks009.sa.wise-paas.com" #待修改
-    uiUrl: "https://ws-ui-metalworkv21-eks009.sa.wise-paas.com" #待修改
+    apiUrl: "https://ws-api-metalworkv21-eks005.sa.wise-paas.com" #待修改
+    apimongoUrl: "https://ws-apimongo-metalworkv21-eks005.sa.wise-paas.com" #待修改
+    apimeasureUrl: "https://ws-measure-metalworkv21-eks005.sa.wise-paas.com" #待修改
+    apimeasuremachineUrl: "https://ws-measurema-metalworkv21-eks005.sa.wise-paas.com" #待修改
+    apipluginUrl: "https://ws-plugin-metalworkv21-eks005.sa.wise-paas.com" #待修改
+    apisdkUrl: "https://ws-sdk-metalworkv21-eks005.sa.wise-paas.com" #待修改
+    apissoUrl: "https://ws-sso-metalworkv21-eks005.sa.wise-paas.com" #待修改
+    uiUrl: "https://ws-ui-metalworkv21-eks005.sa.wise-paas.com" #待修改
     #4 之後需改用ensaas-secret
     mongodbUrl : "52.187.110.12:27017"
     mongodbDatabase : "yoga-test"
     mongodbUsername : "2944c166-b0f0-4ca9-9122-3eb1b457de1c"
     mongodbPassword : "G0ucKxREMEWzvTcZfckdrUax"
+    #5 only for sso, 注意有包含/v4.0
+    wiseUrl: "https://portal-sso-ensaas.sa.wise-paas.com/v4.0"
+              
+
 
 # ------------------------------------------------------------------------------
 # Service
@@ -370,3 +375,32 @@ initmongo:
       memory: 128M
       ephemeral-storage: 128M 
 # ------------------------------------------------------------------------------    
+sso:
+  enabled: true
+  name: sso
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/auth
+    tag: 1.11.5
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: sso-svc
+
+  secret:
+    # password: "123"
+  service:
+    externalEnabled: false #true->走nodeport, false->走clusterip (參考svc if else寫法)
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 400M
+      cpu: 400m
+      ephemeral-storage: 400M
+    limits:
+      cpu: 400m
+      memory: 400M
+      ephemeral-storage: 400M   
