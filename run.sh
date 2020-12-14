@@ -1,13 +1,19 @@
-# 宣告使用 /bin/bash
 #!/bin/bash
 
-NAME=metalworks
+HELMNAME=metalworks
 
-# helm install . -g
+# 檢查後改這裡就好
+# PLACE=values-ks 
+PLACE=values-sa
 
-# method 1 
-helm del $NAME
-helm install $NAME .
+# 確認你所在的ns!
+# ---------------------------->
+cat $PLACE.yaml >> values.yaml
 
-# or method2
-# helm upgrade $NAME .
+# method1---------------------
+helm del $HELMNAME
+helm install $HELMNAME .
+
+# method2---------------------
+# helm upgrade $NAME1 .
+# helm upgrade $NAME2 .

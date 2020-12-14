@@ -1,0 +1,407 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# ------------------------------------------------------------------------------
+# Cluster & AppName
+# ------------------------------------------------------------------------------
+appName: "ws" #會影響到網域開頭 & pod名稱(deployment metadata)
+
+ensaas:
+  enabled: false
+
+ingress:
+  enabled: true
+
+# ------------------------------------------------------------------------------
+# global
+# ------------------------------------------------------------------------------
+# old
+# ------------------------------------------------------------------------------
+# global:
+#   database:
+#     secretName: "eks005-m2i-secret" #"cluster-ns-secret"
+#   url:
+#     host: ".m2i.eks005.en.internal" #".ns.cluster.en.internal"
+#   ensaasApps:
+#     apiLicense:
+#       externalUrl: "https://api-license-ensaas.sa.wise-paas.com/v1"
+#       internalUrl: "http://api.license.ensaas.en.internal/v1"
+#     apiSso:
+#       externalUrl: "https://api-sso-ensaas.sa.wise-paas.com/v4.0"
+#       internalUrl: "http://api.sso.ensaas.en.internal/v4.0"
+#     ensaas:
+#       datacenterCode: "sa"
+#       externalUrl: "sa.wise-paas.com"
+#       internalUrl: "en.internal"
+# ------------------------------------------------------------------------------
+# new
+# ------------------------------------------------------------------------------
+#  #當前環境=eks009 #崑山=eks003 需全部replace
+# ------------------------------------------------------------------------------
+global:
+  database:
+    secretName: ifactory-metalworkv21-secret
+  url:
+    host: .metalworkv21.eks003.en.internal #網域會多一個metalworkv21
+    # host: .eks009.en.internal  #不加metalworkv21, 部屬出來後打不通
+  ensaasApps:    
+    apiSso:
+      internalUrl: http://api.sso.ensaas.en.internal/v4.0/auth/native
+      externalUrl: http://api-sso-ensaas.ifactory.wise-stack.com.cn/v4.0/auth/native
+    apiLicense:
+      internalUrl: http://api.license.ensaas.en.internal/v1
+      externalUrl: http://metalwork-license-metalworkv21-eks003.ifactory.wise-stack.com.cn/v1
+    ensaas:
+      datacenterCode: ks
+      externalUrl: ifactory.wise-stack.com.cn
+      internalUrl: en.internal
+    licenseParam:
+      pn: "9803WPMPM1"
+    timeSetting:
+      time_zone: 8
+    menuSetting:
+      module: "OEE,EHS"
+
+# ------------------------------------------------------------------------------
+# Namespace
+# ------------------------------------------------------------------------------
+namespace:
+   enabled: false
+
+# ------------------------------------------------------------------------------
+# Docker Registry Key
+# ------------------------------------------------------------------------------
+imageSecrets: 
+    enabled: true
+    name: harbor-regkey
+    regkey: ewogICAgICAgICJhdXRocyI6IHsKICAgICAgICAgICAgICAgICJoYXJib3IuYXJmYS53aXNlLXBhYXMuY29tIjogewogICAgICAgICAgICAgICAgICAgICAgICAiYXV0aCI6ICJVM1Z1YzNndVUzVnVPa0ZrZG1GdWRHVmphRUF4TURBNCIKICAgICAgICAgICAgICAgIH0KICAgICAgICB9LAogICAgICAgICJIdHRwSGVhZGVycyI6IHsKICAgICAgICAgICAgICAgICJVc2VyLUFnZW50IjogIkRvY2tlci1DbGllbnQvMTkuMDMuMTIgKGxpbnV4KSIKICAgICAgICB9Cn0=
+
+# ------------------------------------------------------------------------------
+# Additional
+# ------------------------------------------------------------------------------
+podPrefix: metalworkv21 #會影響到pod名稱(deployment metadata)
+
+# ------------------------------------------------------------------------------
+# Env
+# ------------------------------------------------------------------------------
+env:
+    #1 填入各服務正確位置
+    dataHubUrl: "http://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    apmUrl: "http://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    dashboardUrl: "http://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    mobileUrl: "http://ifactory-webservice-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    notificationUrl: "http://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    #2
+    adminUsername : "sunsx.sun@advantech.com.cn"
+    adminPassword : "2334697d@Ss0"
+    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
+    #ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn"
+    ssoUrl : "http://portal-sso-ensaas.ifactory.wise-stack.com.cn" #新修改    
+    #3 注意需依照ingress config來做修改
+    apiUrl: "http://ws-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    apimongoUrl: "http://ws-apimongo-metalworkv21-eks003.ifactory.wise-stack.com.cn" 
+    apimeasureUrl: "http://ws-measure-metalworkv21-eks003.ifactory.wise-stack.com.cn" 
+    apimeasuremachineUrl: "http://ws-measurema-metalworkv21-eks003.ifactory.wise-stack.com.cn" 
+    apipluginUrl: "http://ws-plugin-metalworkv21-eks003.ifactory.wise-stack.com.cn" 
+    apisdkUrl: "http://ws-sdk-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    uiUrl: "http://ws-ui-metalworkv21-eks003.ifactory.wise-stack.com.cn" 
+    apissoUrl: "http://ws-sso-metalworkv21-eks003.ifactory.wise-stack.com.cn" #新修改    
+    #4 之後需改用ensaas-secret
+    mongodbUrl : "172.21.160.27:27017"
+    mongodbDatabase : "ifactory-metalworkv21-mongo-privatecloud"
+    mongodbUsername : "bad36f42-45c6-4eea-82ca-00067be82707"
+    mongodbPassword : "Dsc3WD9F3qNfHK6a95jjJkwz"
+    #5 只給我們自己部屬的sso轉接服務用, 注意有包含/v4.0
+    wiseUrl: "http://portal-sso-ensaas.ifactory.wise-stack.com.cn/v4.0"
+    #6 目前沒用到
+    # saasComposerUrl: "https://saas-composer-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+
+# ------------------------------------------------------------------------------
+# Service
+# ------------------------------------------------------------------------------
+api:
+  enabled: true
+  name: api
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/api
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: api-svc
+
+  secret:
+    # password: "123"
+  service:
+    externalEnabled: false #true->走nodeport, false->走clusterip (參考svc if else寫法)
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 128M
+      cpu: 20m
+      storage: 128M
+    limits:
+      memory: 256M
+      cpu: 80m
+      storage: 256M
+# ------------------------------------------------------------------------------
+apimongo:
+  enabled: true
+  name: apimongo
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/api-mongodb
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: apimongo-svc
+
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M      
+# ------------------------------------------------------------------------------
+measure:
+  enabled: true
+  name: measure
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/measure
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: measure-svc
+
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M
+# ------------------------------------------------------------------------------
+measurema:
+  enabled: true
+  name: measurema
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/measure-machine-perf
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: measurema-svc
+
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M                  
+# ------------------------------------------------------------------------------
+plugin:
+  enabled: true
+  name: plugin
+  port: 5000
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/mwopercmd
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: plugin-svc
+
+  secret:
+    # password: "123"
+  service:
+    externalEnabled: false #true->走nodeport, false->走clusterip (參考svc if else寫法)
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M
+# ------------------------------------------------------------------------------
+sdk:
+  enabled: true
+  name: sdk
+  port: 5000
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/containrm
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: sdk-svc
+
+  secret:
+    # password: "123"
+  service:
+    externalEnabled: false #true->走nodeport, false->走clusterip (參考svc if else寫法)
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M   
+# ------------------------------------------------------------------------------
+ui:
+  enabled: true
+  name: ui
+  port: 5000
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/metalworksiii
+    tag: 1.0.57 #注意ks使用1.0.57
+  replicas: 1
+  imagePullPolicy: Always
+  cm:
+    host: ui-svc
+
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: #80
+  resources: 
+    enabled: true
+    requests:
+      memory: 32M
+      cpu: 5m
+      ephemeral-storage: 100Mi
+    limits:
+      cpu: 100m
+      memory: 200M
+      ephemeral-storage: 500Mi       
+# ------------------------------------------------------------------------------
+initmongo:
+  enabled: true
+  name: initmongo
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/init-mongodb
+    tag: latest
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: initmongo-svc
+  secret:
+  service:
+    externalEnabled: false
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 64M
+      cpu: 10m
+      ephemeral-storage: 64M
+    limits:
+      cpu: 40m
+      memory: 128M
+      ephemeral-storage: 128M 
+# ------------------------------------------------------------------------------    
+sso:
+  enabled: true
+  name: sso
+  port: 8080
+  image:
+    repository: harbor.arfa.wise-paas.com/metalworks/auth
+    tag: 1.11.5
+  replicas: 1
+  imagePullPolicy: Always #IfNotPresent
+  cm:
+    host: sso-svc
+
+  secret:
+    # password: "123"
+  service:
+    externalEnabled: false #true->走nodeport, false->走clusterip (參考svc if else寫法)
+    type: NodePort
+    host: #
+    nodePort: 32080
+  resources: 
+    enabled: true
+    requests:
+      memory: 400M
+      cpu: 400m
+      ephemeral-storage: 400M
+    limits:
+      cpu: 400m
+      memory: 400M
+      ephemeral-storage: 400M   
