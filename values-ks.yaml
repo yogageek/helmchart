@@ -295,7 +295,7 @@ sdk:
   port: 5000
   image:
     repository: harbor.arfa.wise-paas.com/metalworks/containrm
-    tag: latest
+    tag: 1.0.31 #this version is only for ks
   replicas: 1
   imagePullPolicy: Always #IfNotPresent
   cm:
