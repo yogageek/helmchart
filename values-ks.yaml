@@ -117,7 +117,7 @@ env:
     #2
     adminUsername : "sunsx.sun@advantech.com.cn"
     adminPassword : "2334697d@Ss0"
-    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn"
+    dccsUrl: "http://api-dccs-ensaas.ifactory.wise-stack.com.cn"
     #ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn"
     ssoUrl : "http://portal-sso-ensaas.ifactory.wise-stack.com.cn" #新修改    
     #3 注意需依照ingress config來做修改
