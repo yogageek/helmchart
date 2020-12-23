@@ -111,13 +111,13 @@ env:
     #1 填入各服務正確位置
     dataHubUrl: "http://portal-datahub-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     apmUrl: "http://portal-apm-metalworkv21-eks003.ifactory.wise-stack.com.cn"
-    dashboardUrl: "http://apm-dashboard-api-metalworkv21-eks003.ifactory.wise-stack.com.cn"
+    dashboardUrl: "http://dashboard-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     mobileUrl: "http://ifactory-webservice-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     notificationUrl: "http://portal-notification-metalworkv21-eks003.ifactory.wise-stack.com.cn"
     #2
     adminUsername : "sunsx.sun@advantech.com.cn"
     adminPassword : "2334697d@Ss0"
-    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn/v1"
+    dccsUrl: "http://api-dccs.ensaas.ifactory.wise-stack.com.cn"
     #ssoUrl : "http://api-sso-ensaas.ifactory.wise-stack.com.cn"
     ssoUrl : "http://portal-sso-ensaas.ifactory.wise-stack.com.cn" #新修改    
     #3 注意需依照ingress config來做修改
@@ -325,7 +325,7 @@ ui:
   port: 5000
   image:
     repository: harbor.arfa.wise-paas.com/metalworks/metalworksiii
-    tag: 1.0.57 #注意ks使用1.0.57
+    tag: 1.0.57 #1.0.57為ks專用
   replicas: 1
   imagePullPolicy: Always
   cm:
