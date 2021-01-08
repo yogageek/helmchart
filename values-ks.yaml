@@ -207,7 +207,7 @@ measure:
   port: 8080
   image:
     repository: harbor.arfa.wise-paas.com/metalworks/measure
-    tag: latest
+    tag: ks
   replicas: 1
   imagePullPolicy: Always #IfNotPresent
   cm:
